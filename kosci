@@ -1,0 +1,112 @@
+main.java:
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Podaj liczbe oczek dla pierwszej kosci: ");
+        int liczba = scanner.nextInt();
+
+        Kosc kosc1 = new Kosc(liczba);
+
+        System.out.println();
+        System.out.println("Pierwsza kosc:");
+        System.out.println("Liczba utworzonych instancji: " + Kosc.liczbaInstancji);
+        System.out.println("Liczba oczek: " + kosc1.liczbaOczek);
+        System.out.println("Liczba oczek slownie: " + kosc1.pokazLiczbe());
+        System.out.println("Nazwa pliku: " + kosc1.nazwyPlikow[kosc1.identyfikatorPliku]);
+
+        Kosc kosc2 = new Kosc();
+
+        System.out.println();
+        System.out.println("Druga kosc:");
+        System.out.println("Liczba utworzonych instancji: " + Kosc.liczbaInstancji);
+        System.out.println("Liczba oczek: " + kosc2.liczbaOczek);
+        System.out.println("Liczba oczek slownie: " + kosc2.pokazLiczbe());
+        System.out.println("Nazwa pliku: " + kosc2.nazwyPlikow[kosc2.identyfikatorPliku]);
+
+        scanner.close();
+    }
+}
+
+
+kosc.java
+
+import java.util.Random;
+
+public class Kosc {
+
+    public static int liczbaInstancji = 0;
+
+    public String[] nazwyPlikow = {
+            "kosc0.png",
+            "kosc1.png",
+            "kosc2.png",
+            "kosc3.png",
+            "kosc4.png",
+            "kosc5.png",
+            "kosc6.png"
+    };
+
+    public int liczbaOczek;
+    public int identyfikatorPliku;
+    public boolean dostepna;
+
+    public Kosc(int liczba) {
+        if (liczba < 1 || liczba > 6) {
+            liczba = 0;
+        }
+
+        liczbaOczek = liczba;
+        identyfikatorPliku = liczba;
+        dostepna = true;
+
+        liczbaInstancji++;
+    }
+
+    public Kosc() {
+        Random random = new Random();
+
+        liczbaOczek = random.nextInt(6) + 1;
+        identyfikatorPliku = liczbaOczek;
+        dostepna = true;
+
+        liczbaInstancji++;
+    }
+
+    public void rzut() {
+        if (dostepna) {
+            Random random = new Random();
+
+            liczbaOczek = random.nextInt(6) + 1;
+            identyfikatorPliku = liczbaOczek;
+        }
+    }
+
+    public void blokuj() {
+        dostepna = false;
+    }
+
+    public String pokazLiczbe() {
+        switch (liczbaOczek) {
+            case 1:
+                return "jeden";
+            case 2:
+                return "dwa";
+            case 3:
+                return "trzy";
+            case 4:
+                return "cztery";
+            case 5:
+                return "pięć";
+            case 6:
+                return "sześć";
+            default:
+                return "zero";
+        }
+    }
+}
